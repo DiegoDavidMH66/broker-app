@@ -1,0 +1,228 @@
+<div class="dashboard-home">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="header-intro">
+      <h1>Buenos días, Diego 👋</h1>
+      <p>Aquí tienes un resumen de la actividad de hoy en AgroSeguro.</p>
+    </div>
+    <div class="header-actions">
+      @for (action of quickActions; track action.label) {
+        <a [routerLink]="action.route" class="quick-action" [attr.data-icon]="action.icon">
+          <span class="action-icon">
+            @switch (action.icon) {
+              @case ('plus') {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+              }
+              @case ('alert') {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                  <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+              }
+              @case ('chart') {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+                </svg>
+              }
+              @case ('metrics') {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                </svg>
+              }
+            }
+          </span>
+          <span class="action-label">{{ action.label }}</span>
+        </a>
+      }
+    </div>
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="kpi-grid">
+    @for (kpi of kpis; track kpi.title; let i = $index) {
+      <div class="kpi-card" [attr.data-color]="kpi.color" [style.animation-delay]="(i * 80) + 'ms'">
+        <div class="kpi-header">
+          <span class="kpi-title">{{ kpi.title }}</span>
+          <span class="kpi-icon" [attr.data-color]="kpi.color">
+            @switch (kpi.icon) {
+              @case ('solicitudes') {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                </svg>
+              }
+              @case ('polizas') {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              }
+              @case ('siniestros') {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                  <line x1="12" y1="9" x2="12" y2="13"/>
+                  <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+              }
+              @case ('prima') {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                </svg>
+              }
+            }
+          </span>
+        </div>
+        <div class="kpi-value">{{ kpi.value }}</div>
+        <div class="kpi-change" [attr.data-type]="kpi.changeType">
+          @if (kpi.changeType === 'up') {
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+              <polyline points="17 6 23 6 23 12"/>
+            </svg>
+          } @else if (kpi.changeType === 'down') {
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/>
+              <polyline points="17 18 23 18 23 12"/>
+            </svg>
+          }
+          <span>{{ kpi.change }}</span>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Content Grid -->
+  <div class="content-grid">
+    <!-- Recent Activity -->
+    <div class="card activity-card">
+      <div class="card-header">
+        <h3>Actividad Reciente</h3>
+        <button class="card-action">Ver todo</button>
+      </div>
+      <div class="activity-list">
+        @for (activity of recentActivities; track activity.description; let i = $index) {
+          <div class="activity-item" [style.animation-delay]="(i * 60) + 'ms'">
+            <div class="activity-icon" [attr.data-type]="activity.type">
+              @switch (activity.type) {
+                @case ('solicitud') {
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                  </svg>
+                }
+                @case ('siniestro') {
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                    <line x1="12" y1="9" x2="12" y2="13"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                  </svg>
+                }
+                @case ('poliza') {
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  </svg>
+                }
+              }
+            </div>
+            <div class="activity-content">
+              <p class="activity-desc">{{ activity.description }}</p>
+              <span class="activity-time">{{ activity.time }}</span>
+            </div>
+            <span class="activity-status" [attr.data-status]="activity.statusColor">
+              {{ activity.status }}
+            </span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Stats & Summary -->
+    <div class="sidebar-cards">
+      <!-- Distribution Chart Placeholder -->
+      <div class="card chart-card">
+        <div class="card-header">
+          <h3>Distribución de Cultivos</h3>
+        </div>
+        <div class="chart-bars">
+          <div class="chart-bar-item">
+            <div class="bar-label">
+              <span>Soja</span>
+              <span class="bar-value">38%</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width: 38%; background: var(--color-primary);"></div>
+            </div>
+          </div>
+          <div class="chart-bar-item">
+            <div class="bar-label">
+              <span>Trigo</span>
+              <span class="bar-value">26%</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width: 26%; background: var(--color-accent);"></div>
+            </div>
+          </div>
+          <div class="chart-bar-item">
+            <div class="bar-label">
+              <span>Maíz</span>
+              <span class="bar-value">20%</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width: 20%; background: var(--color-success);"></div>
+            </div>
+          </div>
+          <div class="chart-bar-item">
+            <div class="bar-label">
+              <span>Girasol</span>
+              <span class="bar-value">10%</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width: 10%; background: var(--color-info);"></div>
+            </div>
+          </div>
+          <div class="chart-bar-item">
+            <div class="bar-label">
+              <span>Otros</span>
+              <span class="bar-value">6%</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width: 6%; background: var(--color-text-tertiary);"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upcoming Renewals -->
+      <div class="card renewals-card">
+        <div class="card-header">
+          <h3>Próximos Vencimientos</h3>
+          <span class="card-badge">5 pólizas</span>
+        </div>
+        <div class="renewals-list">
+          <div class="renewal-item">
+            <div class="renewal-info">
+              <span class="renewal-client">Estancia El Roble</span>
+              <span class="renewal-detail">Póliza #4521 · Soja</span>
+            </div>
+            <span class="renewal-date urgent">3 días</span>
+          </div>
+          <div class="renewal-item">
+            <div class="renewal-info">
+              <span class="renewal-client">Agrícola San Martín</span>
+              <span class="renewal-detail">Póliza #4489 · Trigo</span>
+            </div>
+            <span class="renewal-date warning">7 días</span>
+          </div>
+          <div class="renewal-item">
+            <div class="renewal-info">
+              <span class="renewal-client">Campo Los Álamos</span>
+              <span class="renewal-detail">Póliza #4350 · Maíz</span>
+            </div>
+            <span class="renewal-date">15 días</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

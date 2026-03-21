@@ -1,0 +1,164 @@
+<div class="login-container">
+  <!-- Left Panel — Brand Illustration -->
+  <div class="login-brand">
+    <div class="brand-overlay"></div>
+    <div class="brand-pattern">
+      <div class="pattern-circle c1"></div>
+      <div class="pattern-circle c2"></div>
+      <div class="pattern-circle c3"></div>
+      <div class="pattern-line l1"></div>
+      <div class="pattern-line l2"></div>
+      <div class="pattern-dot-grid"></div>
+    </div>
+    <div class="brand-content">
+      <div class="brand-logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 4C20 10 8 18 8 28C8 36.8366 15.1634 44 24 44C32.8366 44 40 36.8366 40 28C40 18 28 10 24 4Z" fill="rgba(200,150,62,0.3)" stroke="#C8963E" stroke-width="2"/>
+            <path d="M24 16V36M24 36C20 32 16 28 16 24M24 36C28 32 32 28 32 24" stroke="#C8963E" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h1 class="brand-name">AgroSeguro</h1>
+        <span class="brand-badge">Broker de Seguros</span>
+      </div>
+      <div class="brand-text">
+        <h2>Protegemos el futuro<br>de tu cosecha</h2>
+        <p>Plataforma integral para la gestión de seguros agrícolas, siniestros y análisis de resultados.</p>
+      </div>
+      <div class="brand-stats">
+        <div class="stat">
+          <span class="stat-value">2,847</span>
+          <span class="stat-label">Pólizas Activas</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-value">98.5%</span>
+          <span class="stat-label">Satisfacción</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-value">$12M</span>
+          <span class="stat-label">Indemnizados</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Panel — Login Form -->
+  <div class="login-form-panel">
+    <div class="form-wrapper">
+      <!-- Mobile Logo -->
+      <div class="mobile-logo">
+        <div class="logo-icon-sm">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 4C20 10 8 18 8 28C8 36.8366 15.1634 44 24 44C32.8366 44 40 36.8366 40 28C40 18 28 10 24 4Z" fill="rgba(27,58,45,0.1)" stroke="#1B3A2D" stroke-width="2"/>
+            <path d="M24 16V36M24 36C20 32 16 28 16 24M24 36C28 32 32 28 32 24" stroke="#1B3A2D" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="mobile-brand">AgroSeguro</span>
+      </div>
+
+      <div class="form-header">
+        <h2>Bienvenido de vuelta</h2>
+        <p>Ingrese sus credenciales para acceder al sistema</p>
+      </div>
+
+      @if (errorMessage()) {
+        <div class="alert alert-error">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="15" y1="9" x2="9" y2="15"/>
+            <line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <span>{{ errorMessage() }}</span>
+        </div>
+      }
+
+      <form (ngSubmit)="onSubmit()" class="login-form">
+        <div class="form-group">
+          <label for="email">Correo electrónico</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="4" width="20" height="16" rx="3"/>
+              <polyline points="22,4 12,13 2,4"/>
+            </svg>
+            <input
+              id="email"
+              type="email"
+              [(ngModel)]="email"
+              name="email"
+              placeholder="nombre@empresa.com"
+              autocomplete="email"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="label-row">
+            <label for="password">Contraseña</label>
+            <a routerLink="/auth/forgot-password" class="forgot-link">¿Olvidó su contraseña?</a>
+          </div>
+          <div class="input-wrapper">
+            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="3" y="11" width="18" height="11" rx="3"/>
+              <path d="M7 11V7a5 5 0 0110 0v4"/>
+            </svg>
+            <input
+              id="password"
+              [type]="showPassword() ? 'text' : 'password'"
+              [(ngModel)]="password"
+              name="password"
+              placeholder="••••••••"
+              autocomplete="current-password"
+              required
+            />
+            <button type="button" class="toggle-password" (click)="togglePassword()">
+              @if (showPassword()) {
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/>
+                  <path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/>
+                  <line x1="1" y1="1" x2="23" y2="23"/>
+                </svg>
+              } @else {
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              }
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" />
+            <span class="checkmark"></span>
+            <span>Recordar sesión</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn-login" [disabled]="isLoading()">
+          @if (isLoading()) {
+            <span class="spinner"></span>
+            <span>Ingresando...</span>
+          } @else {
+            <span>Iniciar Sesión</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          }
+        </button>
+      </form>
+
+      <div class="form-footer">
+        <p>¿Necesita acceso al sistema? <a href="mailto:soporte@agroseguro.com" class="contact-link">Contacte al administrador</a></p>
+      </div>
+    </div>
+
+    <div class="footer-legal">
+      <p>&copy; 2026 AgroSeguro. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</div>
