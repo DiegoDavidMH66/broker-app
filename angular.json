@@ -33,6 +33,7 @@
           },
           "configurations": {
             "production": {
+                "baseHref": "/broker-app/",
               "budgets": [
                 {
                   "type": "initial",
